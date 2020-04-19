@@ -17,5 +17,5 @@ module.exports = function (app) {
 
   // Message
   app.post("/message", ChatController.postMessage);
-  app.get("/chat", ChatController.getMessages);
+  app.get("/api/chat", ChatController.getMessages);
 };
