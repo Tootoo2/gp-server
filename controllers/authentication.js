@@ -17,20 +17,13 @@ exports.signin = function (req, res) {
 exports.signup = (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
+  const validNames = ["TooToo2"];
 
-  /*await User.find({}, (err) => {
-    if (err) {
-      return next(err);
-    }
-    User.countDocuments({}, (err, count) => {
-      if (err) {
-        return next(err);
-      }
-      if (count >= 10) {
-        return res.status(400).send({ error: "Max amount of users registred" });
-      }
-    });
-	});*/
+  const isValid = validNames.filter((name) => name === username);
+
+  if (isValid.length === 0) {
+    return res.status(422).send({ error: "Specified name not in invite list" });
+  }
 
   User.findOne({ username: username }, (err, existingUser) => {
     if (err) {
