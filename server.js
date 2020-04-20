@@ -13,7 +13,7 @@ app.use(bodyParser.json({ type: "*/*" }));
 router(app);
 
 const server = http.createServer(app);
-server.listen(process.env.PORT);
+server.listen(process.env.PORT || 3000);
 
 mongoose
   .connect(uri, {
