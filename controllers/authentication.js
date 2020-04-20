@@ -17,7 +17,7 @@ exports.signin = function (req, res) {
 exports.signup = (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
-  const validNames = ["TooToo2, tombarnaby, eldräven"];
+  const validNames = ["TooToo2", "tombarnaby", "eldräven", "PUNKEN"];
 
   const isValid = validNames.filter((name) => name === username);
 
