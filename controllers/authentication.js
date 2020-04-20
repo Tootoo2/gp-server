@@ -23,6 +23,10 @@ exports.signup = (req, res, next) => {
     "eldräven",
     "PUNKEN",
     "Nymanspojken",
+    "dombeldoorsHatt",
+    "boozter",
+    "Cederhök",
+    "fleskfia",
   ];
 
   const isValid = validNames.filter((name) => name === username);
