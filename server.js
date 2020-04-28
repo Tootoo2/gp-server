@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0-rz9ov.mongodb.net/gambling-picks?retryWrites=true&w=majority`;
 const test = require("dotenv").config();
+const socketController = require("./controllers/socketController");
 
 app.use(cors());
 app.use(bodyParser.json({ type: "*/*" }));
@@ -24,13 +25,7 @@ mongoose
   .then(() => {
     console.log("connected to atlas db");
     const io = require("./socket").init(server);
-    io.on("connection", (socket) => {
-      console.log("client connected");
-
-      socket.on("disconnect", () => {
-        console.log("Client disconnected");
-      });
-    });
+    socketController(io);
   })
   .catch((err) => console.log(err));
 
