@@ -79,3 +79,14 @@ exports.getUser = (req, res) => {
     return res.status(404).send("Not Found");
   });
 };
+
+exports.getUsers = async (req, res) => {
+  const users = await User.find();
+  if (!users) {
+    return res.status(400).send({ error: "no users found" });
+  }
+  const modifiedUsers = users.map((user) => {
+    return { _id: user._id, username: user.username };
+  });
+  return res.status(200).send(modifiedUsers);
+};
