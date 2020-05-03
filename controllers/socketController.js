@@ -14,7 +14,7 @@ module.exports = (io) => {
         const filterArr = users.filter((user) => user._id === data._id);
         filterArr.length === 0 && users.push(data);
       }
-      socket.emit('onlineUsers', users);
+      io.emit('onlineUsers', users);
     });
     socket.on('disconnect', () => {
       removeSocket(socket.id);
@@ -25,7 +25,6 @@ module.exports = (io) => {
 
 const bindSocketToUser = (index, id) => {
   users[index].sockets.push(id);
-  console.log(users)
 };
 
 const removeSocket = (id) => {
