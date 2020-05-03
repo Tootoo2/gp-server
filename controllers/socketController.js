@@ -3,19 +3,18 @@ const users = [];
 
 module.exports = (io) => {
   io.on('connection', (socket) => {
-    console.log('client connected');
     socket.on('userOnline', (data) => {
       data.sockets = [socket.id];
       if (users.length === 0) {
         users.push(data);
       } else {
-        users.map((user, i) =>
-          user._id === data._id
-            ? bindSocketToUser(i, socket.id)
-            : users.push(data)
+        users.map(
+          (user, i) => user._id === data._id && bindSocketToUser(i, socket.id)
         );
+        const filterArr = users.filter((user) => user._id === data._id);
+        filterArr.length === 0 && users.push(data);
       }
-      socket.emit("onlineUsers", users)
+      socket.emit('onlineUsers', users);
     });
     socket.on('disconnect', () => {
       removeSocket(socket.id);
@@ -26,6 +25,7 @@ module.exports = (io) => {
 
 const bindSocketToUser = (index, id) => {
   users[index].sockets.push(id);
+  console.log(users)
 };
 
 const removeSocket = (id) => {
